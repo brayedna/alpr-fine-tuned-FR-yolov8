@@ -1,6 +1,6 @@
-# ALPR INTELLIGENT - Système Avancé de Reconnaissance de Plaques d'Immatriculation
+# INTELLIGENT ALPR - Advanced License Plate Recognition System
 
-> **Système intelligent de détection, suivi et reconnaissance automatique de plaques d'immatriculation avec IA**
+> **Intelligent system for detection, tracking and automatic license plate recognition with AI**
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python)](https://python.org)
 [![YOLO](https://img.shields.io/badge/YOLO-11s-green.svg?logo=yolo)](https://ultralytics.com)
@@ -11,30 +11,30 @@
 
 ---
 
-## Vue d'ensemble
+## Overview
 
-**ALPR Intelligent** est un système complet de reconnaissance automatique de plaques d'immatriculation (ALPR - Automatic License Plate Recognition) utilisant les technologies d'intelligence artificielle les plus avancées. Le système combine la détection par YOLO11, le suivi multi-objets avec ByteTrack, et l'OCR avec vote multi-frames pour une précision maximale.
+**Intelligent ALPR** is a complete automatic license plate recognition system (ALPR - Automatic License Plate Recognition) using the most advanced artificial intelligence technologies. The system combines detection with YOLO11, multi-object tracking with ByteTrack, and OCR with multi-frame voting for maximum accuracy.
 
-Le projet couvre l'intégralité du pipeline : extraction de frames vidéo, annotation, entraînement du modèle avec transfer learning, détection temps réel, suivi des véhicules, sélection du meilleur frame, et reconnaissance OCR avec normalisation pour le format français (AA-123-AA).
-
----
-
-## Fonctionnalités principales
-
-- **Détection haute précision** : YOLO11s optimisé pour les petits objets (plaques)
-- **Suivi multi-objets** : ByteTrack pour maintenir les identités des véhicules
-- **Sélection intelligente** : Choix automatique du meilleur frame par véhicule
-- **OCR robuste** : Double moteur (PaddleOCR + EasyOCR) avec vote multi-frames
-- **Normalisation française** : Validation et correction pour format AA-123-AA
-- **Temps réel** : Support webcam, vidéo, flux RTSP avec affichage live
-- **Pipeline complet** : De la vidéo brute à l'export CSV avec métadonnées
-- **Transfer learning** : Entraînement en deux phases avec poids pré-entraînés
-- **Hard-negative mining** : Gestion intelligente des échantillons négatifs
-- **Visualisations** : Grilles de résultats, statistiques, crops organisés
+The project covers the entire pipeline: video frame extraction, annotation, model training with transfer learning, real-time detection, vehicle tracking, best frame selection, and OCR recognition with normalization for French format (AA-123-AA).
 
 ---
 
-## Captures d'écran
+## Main Features
+
+- **High precision detection**: YOLO11s optimized for small objects (plates)
+- **Multi-object tracking**: ByteTrack to maintain vehicle identities
+- **Intelligent selection**: Automatic best frame selection per vehicle
+- **Robust OCR**: Dual engine (PaddleOCR + EasyOCR) with multi-frame voting
+- **French normalization**: Validation and correction for AA-123-AA format
+- **Real-time**: Webcam, video, RTSP stream support with live display
+- **Complete pipeline**: From raw video to CSV export with metadata
+- **Transfer learning**: Two-phase training with pre-trained weights
+- **Hard-negative mining**: Intelligent management of negative samples
+- **Visualizations**: Result grids, statistics, organized crops
+
+---
+
+## Screenshots
 
 ### Highway Scene – Real-World ALPR Detection & Tracking
 *This frame comes from a real driving video where the ALPR system detects, reads, and tracks multiple vehicles simultaneously.
@@ -53,26 +53,26 @@ This visualization demonstrates how combining several consecutive frames reduces
 
 ---
 
-## Architecture du système
+## System Architecture
 
 ```mermaid
 graph TB
-    A[Vidéo source] --> B[Extraction FFmpeg]
-    B --> C[Annotation CVAT]
-    C --> D[Organisation Dataset]
-    D --> E[Entraînement YOLO]
-    E --> F[Modèle optimisé]
+    A[Source video] --> B[FFmpeg Extraction]
+    B --> C[CVAT Annotation]
+    C --> D[Dataset Organization]
+    D --> E[YOLO Training]
+    E --> F[Optimized model]
 
-    G[Flux vidéo/webcam] --> H[Détection YOLO11s]
-    H --> I[Suivi ByteTrack]
-    I --> J[Sélection Best Frame]
-    J --> K[Prétraitement Image]
-    K --> L[OCR Multi-frames]
-    L --> M[Vote Pondéré]
-    M --> N[Normalisation Texte]
-    N --> O[Export CSV/Crops]
+    G[Video/webcam stream] --> H[YOLO11s Detection]
+    H --> I[ByteTrack Tracking]
+    I --> J[Best Frame Selection]
+    J --> K[Image Preprocessing]
+    K --> L[Multi-frame OCR]
+    L --> M[Weighted Voting]
+    M --> N[Text Normalization]
+    N --> O[CSV/Crops Export]
 
-    subgraph "Phase d'entraînement"
+    subgraph "Training Phase"
         B1[FFmpeg 6 FPS]
         B2[Sélection Négatives]
         B3[Split 80/20]
@@ -80,7 +80,7 @@ graph TB
         B5[Phase 2: Unfreeze]
     end
 
-    subgraph "Phase d'inférence"
+    subgraph "Inference Phase"
         H1[YOLO Detection]
         H2[ByteTrack Tracker]
         H3[PlateTracker Class]
@@ -118,116 +118,116 @@ graph TB
 
 ---
 
-## Technologies utilisées
+## Technologies Used
 
-### Vision par ordinateur & Deep Learning
-- **YOLO11s (Ultralytics 8.3.228)** : Détection d'objets état de l'art
-- **PyTorch 2.9.1** : Framework de deep learning
-- **OpenCV 4.12.0** : Traitement d'images et vidéo
-- **opencv-contrib-python** : Modules additionnels (tracking)
-- **ByteTrack** : Algorithme de suivi multi-objets (via Ultralytics)
+### Computer Vision & Deep Learning
+- **YOLO11s (Ultralytics 8.3.228)**: State-of-the-art object detection
+- **PyTorch 2.9.1**: Deep learning framework
+- **OpenCV 4.12.0**: Image and video processing
+- **opencv-contrib-python**: Additional modules (tracking)
+- **ByteTrack**: Multi-object tracking algorithm (via Ultralytics)
 
-### OCR (Reconnaissance optique de caractères)
-- **PaddleOCR 3.3.2** : Moteur OCR principal (PaddlePaddle 2.5+)
-- **EasyOCR** : Moteur OCR alternatif pour temps réel
-- **Double stratégie** : Prétraitement couleur + binaire OTSU
+### OCR (Optical Character Recognition)
+- **PaddleOCR 3.3.2**: Main OCR engine (PaddlePaddle 2.5+)
+- **EasyOCR**: Alternative OCR engine for real-time
+- **Dual strategy**: Color preprocessing + OTSU binary
 
-### Traitement de données
-- **NumPy 1.24+** : Calculs numériques et traitement d'arrays
-- **scikit-learn 1.3+** : Split train/val, métriques
-- **Pillow 10.0+** : Manipulation d'images
-- **PyYAML 6.0** : Configuration YAML
+### Data Processing
+- **NumPy 1.24+**: Numerical calculations and array processing
+- **scikit-learn 1.3+**: Train/val split, metrics
+- **Pillow 10.0+**: Image manipulation
+- **PyYAML 6.0**: YAML configuration
 
-### Visualisation & Export
-- **Matplotlib 3.7+** : Génération de visualisations
-- **tqdm 4.65+** : Barres de progression
-- **CSV export** : Métadonnées structurées
+### Visualization & Export
+- **Matplotlib 3.7+**: Visualization generation
+- **tqdm 4.65+**: Progress bars
+- **CSV export**: Structured metadata
 
-### Outils système
-- **FFmpeg** : Extraction de frames vidéo (3/6/12 FPS)
-- **gdown 4.7+** : Téléchargement poids Google Drive
-- **lap 0.4+** : Algorithme d'assignation linéaire (tracking)
+### System Tools
+- **FFmpeg**: Video frame extraction (3/6/12 FPS)
+- **gdown 4.7+**: Google Drive weights download
+- **lap 0.4+**: Linear assignment algorithm (tracking)
 
 ---
 
-## Intelligence Artificielle
+## Artificial Intelligence
 
-### Modèle de détection
+### Detection Model
 
 **YOLO11s** (Small variant)
-- Architecture optimisée pour objets petits (plaques)
-- Résolution d'entraînement : 1280×1280px
-- Backbone pré-entraîné sur COCO + plaques d'immatriculation
-- Taille du modèle : ~6MB (poids spécialisés)
-- Temps d'inférence : ~15-25ms par frame (GPU)
+- Architecture optimized for small objects (plates)
+- Training resolution: 1280×1280px
+- Backbone pre-trained on COCO + license plates
+- Model size: ~6MB (specialized weights)
+- Inference time: ~15-25ms per frame (GPU)
 
-### Stratégie d'entraînement
+### Training Strategy
 
-#### Transfer Learning en deux phases
+#### Two-phase Transfer Learning
 
-**Phase 1 : Freeze (20 epochs)**
-- 10 premières couches du backbone gelées
-- Apprentissage des couches de détection uniquement
+**Phase 1: Freeze (20 epochs)**
+- First 10 backbone layers frozen
+- Detection layers only learning
 - Learning rate warmup (0.01 → target)
-- Objectif : Stabilisation initiale
+- Goal: Initial stabilization
 
-**Phase 2 : Unfreeze (30 epochs)**
-- Toutes les couches dégelées
-- Fine-tuning complet du réseau
-- Learning rate réduit (0.001)
-- Objectif : Adaptation maximale au dataset
+**Phase 2: Unfreeze (30 epochs)**
+- All layers unfrozen
+- Complete network fine-tuning
+- Reduced learning rate (0.001)
+- Goal: Maximum dataset adaptation
 
-#### Augmentations pour petits datasets
+#### Augmentations for small datasets
 ```python
 augmentations = {
-    'hsv_h': 0.015,      # Variation de teinte
+    'hsv_h': 0.015,      # Hue variation
     'hsv_s': 0.7,        # Saturation
-    'hsv_v': 0.4,        # Valeur
+    'hsv_v': 0.4,        # Value
     'degrees': 5.0,      # Rotation ±5°
     'translate': 0.1,    # Translation 10%
     'scale': 0.15,       # Zoom 15%
-    'shear': 2.0,        # Cisaillement 2°
-    'perspective': 0.0,  # Pas de perspective
-    'flipud': 0.0,       # Pas de flip vertical
-    'fliplr': 0.5,       # Flip horizontal 50%
+    'shear': 2.0,        # Shear 2°
+    'perspective': 0.0,  # No perspective
+    'flipud': 0.0,       # No vertical flip
+    'fliplr': 0.5,       # Horizontal flip 50%
     'mosaic': 0.5,       # Mosaic augmentation
     'mixup': 0.1         # Mixup 10%
 }
 ```
 
-### Algorithme de suivi
+### Tracking Algorithm
 
-**ByteTrack** (intégré à Ultralytics)
-- Association par IOU (Intersection over Union)
-- Gestion des occultations temporaires
-- Réinitialisation automatique des IDs perdus
-- Seuil de confiance : 0.25 (configurable)
-- Persistance : maintain track_id across frames
+**ByteTrack** (integrated into Ultralytics)
+- IOU-based association (Intersection over Union)
+- Temporary occlusion management
+- Automatic lost ID reinitialization
+- Confidence threshold: 0.25 (configurable)
+- Persistence: maintain track_id across frames
 
-### Moteurs OCR
+### OCR Engines
 
-#### PaddleOCR (Pipeline principal)
+#### PaddleOCR (Main pipeline)
 ```python
 ocr_engine = PaddleOCR(
-    use_angle_cls=True,      # Détection d'angle
-    lang='en',               # Langue anglaise (plaques)
-    show_log=False,          # Pas de logs verbeux
-    use_gpu=True             # Accélération GPU
+    use_angle_cls=True,      # Angle detection
+    lang='en',               # English language (plates)
+    show_log=False,          # No verbose logs
+    use_gpu=True             # GPU acceleration
 )
 ```
 
-#### EasyOCR (Temps réel)
+#### EasyOCR (Real-time)
 ```python
 reader = easyocr.Reader(
-    ['en'],                  # Anglais uniquement
-    gpu=True,                # GPU si disponible
+    ['en'],                  # English only
+    gpu=True,                # GPU if available
     model_storage_directory='~/.EasyOCR/model/'
 )
 ```
 
-### Vote multi-frames
+### Multi-frame Voting
 
-**Algorithme de consensus pondéré**
+**Weighted consensus algorithm**
 ```python
 def weighted_vote(candidates):
     """
@@ -245,28 +245,28 @@ def weighted_vote(candidates):
     return max(scores.items(), key=lambda x: x[1])
 ```
 
-**Paramètres**
-- Nombre de frames : 3-5 par véhicule
-- Pondération : Somme des confidences
-- Seuil de validation : 0.5 (configurable)
+**Parameters**
+- Number of frames: 3-5 per vehicle
+- Weighting: Sum of confidences
+- Validation threshold: 0.5 (configurable)
 
-### Sélection du meilleur frame
+### Best Frame Selection
 
-**Fonction de scoring**
+**Scoring function**
 ```python
 score = (sharpness × bbox_width) / angle_penalty
 ```
 
-**Détails**
-- **Sharpness** : Variance du Laplacien (netteté)
+**Details**
+- **Sharpness**: Laplacian variance (sharpness)
   ```python
   laplacian = cv2.Laplacian(gray, cv2.CV_64F)
   sharpness = laplacian.var()
   ```
 
-- **BBox Width** : Largeur en pixels (plus grand = mieux)
+- **BBox Width**: Width in pixels (larger = better)
 
-- **Angle Penalty** : Pénalité pour rotation
+- **Angle Penalty**: Rotation penalty
   ```python
   if abs(angle) > 5:
       penalty = 1 + (abs(angle) / 45.0)
@@ -274,9 +274,9 @@ score = (sharpness × bbox_width) / angle_penalty
       penalty = 1.0
   ```
 
-### Normalisation du texte
+### Text Normalization
 
-**Correction intelligente pour format français**
+**Intelligent correction for French format**
 
 ```python
 def normalize_french_plate(text):
@@ -284,17 +284,17 @@ def normalize_french_plate(text):
     Input:  'HE395ER', 'HE 395 ER', 'HE-395-ER', 'O1-234-5B'
     Output: 'HE-395-ER', 'HE-395-ER', 'HE-395-ER', '01-234-SB'
     """
-    # 1. Nettoyer
+    # 1. Clean
     clean = re.sub(r'[^A-Z0-9]', '', text.upper())
 
-    # 2. Corrections positionnelles
+    # 2. Positional corrections
     if len(clean) == 7:
-        # Positions 0-1 et 5-6 : Lettres
+        # Positions 0-1 and 5-6: Letters
         clean = correct_letters(clean, [0, 1, 5, 6])
-        # Positions 2-4 : Chiffres
+        # Positions 2-4: Digits
         clean = correct_digits(clean, [2, 3, 4])
 
-    # 3. Ajouter tirets
+    # 3. Add dashes
     if len(clean) == 7:
         return f"{clean[0:2]}-{clean[2:5]}-{clean[5:7]}"
 
@@ -309,7 +309,7 @@ def correct_letters(text, positions):
     return text
 
 def correct_digits(text, positions):
-    """0 → O, 1 → I, 8 → B, 5 → S (inverse)"""
+    """0 → O, 1 → I, 8 → B, 5 → S (reverse)"""
     corrections = {'0': 'O', '1': 'I', '8': 'B', '5': 'S'}
     for pos in positions:
         if text[pos] in corrections:
@@ -317,7 +317,7 @@ def correct_digits(text, positions):
     return text
 ```
 
-**Regex de validation**
+**Validation regex**
 ```python
 FRENCH_PLATE_PATTERN = r'^[A-Z]{2}-\d{3}-[A-Z]{2}$'
 ```
@@ -326,107 +326,107 @@ FRENCH_PLATE_PATTERN = r'^[A-Z]{2}-\d{3}-[A-Z]{2}$'
 
 ## Performance
 
-### Temps de traitement
+### Processing Time
 
-#### Entraînement
-- **Phase 1 (Freeze)** : ~10-15 minutes (20 epochs, 33 images)
-- **Phase 2 (Unfreeze)** : ~15-20 minutes (30 epochs)
-- **Total** : ~25-35 minutes sur GPU (Apple Silicon M1/M2)
+#### Training
+- **Phase 1 (Freeze)**: ~10-15 minutes (20 epochs, 33 images)
+- **Phase 2 (Unfreeze)**: ~15-20 minutes (30 epochs)
+- **Total**: ~25-35 minutes on GPU (Apple Silicon M1/M2)
 
-#### Inférence (par vidéo de 30 secondes à 30 FPS)
-- **Détection YOLO** : ~15-25ms par frame
-- **Suivi ByteTrack** : ~2-5ms par frame
-- **Sélection best frame** : ~1-2ms par track
-- **OCR (single frame)** : ~50-100ms par plaque
-- **OCR (voting 5 frames)** : ~250-500ms par véhicule
-- **Total pipeline** : ~30-45 FPS en temps réel
+#### Inference (per 30-second video at 30 FPS)
+- **YOLO Detection**: ~15-25ms per frame
+- **ByteTrack Tracking**: ~2-5ms per frame
+- **Best frame selection**: ~1-2ms per track
+- **OCR (single frame)**: ~50-100ms per plate
+- **OCR (voting 5 frames)**: ~250-500ms per vehicle
+- **Total pipeline**: ~30-45 FPS in real-time
 
-### Précision
+### Accuracy
 
-#### Dataset actuel
-- **Images d'entraînement** : 33
-- **Images de validation** : 10
-- **Positives (avec plaques)** : 12
-- **Négatives sélectionnées** : 30
-- **Hard negatives sauvegardées** : 153 (pour future HNM)
+#### Current Dataset
+- **Training images**: 33
+- **Validation images**: 10
+- **Positives (with plates)**: 12
+- **Selected negatives**: 30
+- **Saved hard negatives**: 153 (for future HNM)
 
-#### Métriques de détection (après entraînement)
-- **mAP50** : ~85-92% (selon dataset)
-- **mAP50-95** : ~65-75%
-- **Precision** : ~88-95%
-- **Recall** : ~82-90%
+#### Detection Metrics (after training)
+- **mAP50**: ~85-92% (depending on dataset)
+- **mAP50-95**: ~65-75%
+- **Precision**: ~88-95%
+- **Recall**: ~82-90%
 
-#### Taux de reconnaissance OCR
-- **Single-frame** : ~70-80% (dépend de qualité frame)
-- **Multi-frame voting (3 frames)** : ~85-92%
-- **Multi-frame voting (5 frames)** : ~90-95%
-- **Avec normalisation** : +5-10% de précision
+#### OCR Recognition Rate
+- **Single-frame**: ~70-80% (depends on frame quality)
+- **Multi-frame voting (3 frames)**: ~85-92%
+- **Multi-frame voting (5 frames)**: ~90-95%
+- **With normalization**: +5-10% accuracy
 
-### Optimisations
+### Optimizations
 
-#### Traitement vidéo
-- **Résolution d'entrée** : Redimensionnement à 1280px max
-- **Batch processing** : Traitement par frames (pas de batch GPU pour temps réel)
-- **Early stopping** : Skip frames si véhicule déjà confirmé
+#### Video Processing
+- **Input resolution**: Resize to 1280px max
+- **Batch processing**: Frame-by-frame processing (no GPU batch for real-time)
+- **Early stopping**: Skip frames if vehicle already confirmed
 
 #### OCR
-- **Resize intelligent** : Seulement si < 120px de largeur
-- **Prétraitement adaptatif** :
-  1. Tentative sur image couleur
-  2. Fallback sur binaire OTSU si confiance < 0.5
-- **Cache des résultats** : Pas de re-OCR sur tracks confirmées
+- **Smart resize**: Only if < 120px width
+- **Adaptive preprocessing**:
+  1. Attempt on color image
+  2. Fallback to OTSU binary if confidence < 0.5
+- **Result caching**: No re-OCR on confirmed tracks
 
-#### Mémoire
-- **YOLO11s** : ~25MB RAM (modèle léger)
-- **PaddleOCR** : ~200MB RAM (modèles chargés)
-- **Crops buffer** : Limité à 5 frames par track (deque)
-- **Total runtime** : ~500-800MB RAM
+#### Memory
+- **YOLO11s**: ~25MB RAM (lightweight model)
+- **PaddleOCR**: ~200MB RAM (loaded models)
+- **Crops buffer**: Limited to 5 frames per track (deque)
+- **Total runtime**: ~500-800MB RAM
 
 ---
 
-## Flux de données
+## Data Flow
 
-### 1. Pipeline d'entraînement complet
+### 1. Complete Training Pipeline
 
 ```mermaid
 sequenceDiagram
-    participant V as Vidéos source
+    participant V as Source videos
     participant F as FFmpeg
     participant C as CVAT
     participant O as organize_dataset.py
     participant T as train_yolo.py
-    participant M as Modèle YOLO
+    participant M as YOLO Model
 
     V->>F: clip1.mp4, clip2.mp4 (101MB)
     F->>F: extract_frames.sh (6 FPS)
-    F-->>C: ~195 frames PNG
-    C->>C: Annotation manuelle (bboxes)
-    C-->>O: Export YOLO 1.1 format
+    F-->>C: ~195 PNG frames
+    C->>C: Manual annotation (bboxes)
+    C-->>O: YOLO 1.1 format export
 
-    O->>O: Séparer positives/négatives
-    O->>O: Mesurer netteté (Laplacian)
-    O->>O: Sélectionner 30 meilleures négatives
+    O->>O: Separate positives/negatives
+    O->>O: Measure sharpness (Laplacian)
+    O->>O: Select 30 best negatives
     O->>O: Split 80/20 (33 train, 10 val)
-    O-->>T: Dataset organisé + data.yaml
+    O-->>T: Organized dataset + data.yaml
 
-    T->>T: Télécharger poids pré-entraînés
+    T->>T: Download pre-trained weights
     Note over T: Phase 1: Freeze (20 epochs)
-    T->>M: Entraîner 10 couches gelées
+    T->>M: Train 10 frozen layers
     M-->>T: Checkpoint phase1/weights/best.pt
 
     Note over T: Phase 2: Unfreeze (30 epochs)
-    T->>M: Fine-tuning complet
-    M-->>T: Modèle final best.pt
+    T->>M: Complete fine-tuning
+    M-->>T: Final model best.pt
 
-    T->>T: Évaluation sur validation
-    T-->>V: Métriques (mAP, P, R)
+    T->>T: Validation evaluation
+    T-->>V: Metrics (mAP, P, R)
 ```
 
-### 2. Pipeline d'inférence (mode batch)
+### 2. Inference Pipeline (batch mode)
 
 ```mermaid
 sequenceDiagram
-    participant U as Utilisateur
+    participant U as User
     participant I as inference.py
     participant Y as YOLO11s
     participant B as ByteTrack
@@ -435,39 +435,39 @@ sequenceDiagram
     participant E as Export
 
     U->>I: python inference.py --source video.mp4
-    I->>Y: Charger modèle best.pt
+    I->>Y: Load model best.pt
 
-    loop Pour chaque frame
-        I->>Y: Détecter plaques
+    loop For each frame
+        I->>Y: Detect plates
         Y-->>B: Bounding boxes + conf
-        B->>B: Assigner track_ids
-        B-->>P: Tracks avec IDs
+        B->>B: Assign track_ids
+        B-->>P: Tracks with IDs
 
-        P->>P: Collecter frames par track
-        P->>P: Calculer sharpness
-        P->>P: Calculer angle
+        P->>P: Collect frames per track
+        P->>P: Calculate sharpness
+        P->>P: Calculate angle
     end
 
-    Note over P: Fin de vidéo
+    Note over P: End of video
 
-    loop Pour chaque track
-        P->>P: Sélectionner best frame
-        P->>P: Crop plaque + resize
-        P->>O: Image prétraitée
-        O->>O: OCR + confiance
-        O-->>P: Texte brut
+    loop For each track
+        P->>P: Select best frame
+        P->>P: Crop plate + resize
+        P->>O: Preprocessed image
+        O->>O: OCR + confidence
+        O-->>P: Raw text
 
-        P->>P: Normaliser AA-123-AA
-        P->>P: Valider regex
+        P->>P: Normalize AA-123-AA
+        P->>P: Validate regex
     end
 
-    P-->>E: Liste de résultats
-    E->>E: Générer CSV
-    E->>E: Sauver crops
+    P-->>E: Results list
+    E->>E: Generate CSV
+    E->>E: Save crops
     E-->>U: results.csv + crops/
 ```
 
-### 3. Pipeline temps réel avec vote
+### 3. Real-time Pipeline with Voting
 
 ```mermaid
 sequenceDiagram
@@ -480,139 +480,139 @@ sequenceDiagram
 
     W->>R: Flux vidéo continu
 
-    loop Chaque frame
+    loop Each frame
         R->>Y: Frame + model.track()
-        Y-->>R: Tracks avec IDs
+        Y-->>R: Tracks with IDs
 
-        loop Pour chaque track détecté
-            alt Track nouveau
-                R->>V: Ajouter crop au buffer[track_id]
-                R->>O: OCR sur crop
-                O-->>V: (texte, confiance)
+        loop For each detected track
+            alt New track
+                R->>V: Add crop to buffer[track_id]
+                R->>O: OCR on crop
+                O-->>V: (text, confidence)
 
-                alt Buffer plein (3-5 frames)
-                    V->>V: Vote pondéré
-                    V->>V: Normaliser gagnant
-                    V-->>R: Plaque confirmée
-                    Note over R: Marquer track comme confirmé
+                alt Buffer full (3-5 frames)
+                    V->>V: Weighted voting
+                    V->>V: Normalize winner
+                    V-->>R: Confirmed plate
+                    Note over R: Mark track as confirmed
                 end
-            else Track confirmé
-                Note over R: Skip OCR (déjà traité)
+            else Confirmed track
+                Note over R: Skip OCR (already processed)
             end
         end
 
-        R->>D: Dessiner bboxes + IDs
-        R->>D: Afficher plaques confirmées
-        R->>D: FPS + statistiques
-        D-->>W: Affichage en temps réel
+        R->>D: Draw bboxes + IDs
+        R->>D: Display confirmed plates
+        R->>D: FPS + statistics
+        D-->>W: Real-time display
 
-        alt Utilisateur appuie sur 's'
-            R->>R: Sauvegarder screenshot
+        alt User presses 's'
+            R->>R: Save screenshot
         end
 
-        alt Utilisateur appuie sur 'q'
-            R->>R: Quitter application
+        alt User presses 'q'
+            R->>R: Exit application
         end
     end
 ```
 
-### 4. Post-processing OCR avancé
+### 4. Advanced OCR Post-processing
 
 ```mermaid
 sequenceDiagram
-    participant U as Utilisateur
+    participant U as User
     participant O as ocr_from_tracks.py
-    participant L as Labels YOLO
+    participant L as YOLO Labels
     participant C as Crop Extraction
     participant E1 as EasyOCR
     participant V as Voting System
     participant X as Export
 
     U->>O: python ocr_from_tracks.py
-    O->>L: Charger labels/*.txt
+    O->>L: Load labels/*.txt
 
-    loop Pour chaque track_id
-        L->>C: Extraire 3-5 frames
+    loop For each track_id
+        L->>C: Extract 3-5 frames
 
-        loop Pour chaque frame du track
-            C->>C: Crop selon bbox
-            C->>C: Resize si < 120px
+        loop For each track frame
+            C->>C: Crop according to bbox
+            C->>C: Resize if < 120px
 
-            alt Essai 1: Image couleur
-                C->>E1: OCR sur couleur
-                E1-->>V: (texte, conf)
+            alt Try 1: Color image
+                C->>E1: OCR on color
+                E1-->>V: (text, conf)
             end
 
-            alt Si conf < 0.5: Essai 2: Binaire
+            alt If conf < 0.5: Try 2: Binary
                 C->>C: OTSU threshold
-                C->>E1: OCR sur binaire
-                E1-->>V: (texte, conf)
+                C->>E1: OCR on binary
+                E1-->>V: (text, conf)
             end
         end
 
-        V->>V: Calculer scores cumulés
-        V->>V: Sélectionner meilleur candidat
-        V->>V: Normaliser format français
-        V-->>O: Plaque finale + confiance
+        V->>V: Calculate cumulative scores
+        V->>V: Select best candidate
+        V->>V: Normalize French format
+        V-->>O: Final plate + confidence
     end
 
-    O->>X: Générer CSV
-    O->>X: Grille de visualisation
-    O->>X: Statistiques (taux succès)
+    O->>X: Generate CSV
+    O->>X: Visualization grid
+    O->>X: Statistics (success rate)
     X-->>U: results.csv + visualization.png
 ```
 
 ---
 
-## Structure du projet
+## Project Structure
 
 ```
 car_plate_projet/
-├── app.py                              # [FUTUR] API Flask/FastAPI
+├── app.py                              # [FUTURE] Flask/FastAPI API
 │
-├── train_yolo.py                       # Entraînement deux phases (239 lignes)
-├── inference.py                        # Pipeline complet batch (357 lignes)
-├── ocr_from_tracks.py                  # Post-processing OCR avec vote (548 lignes)
-├── realtime_alpr.py                    # Temps réel simple (273 lignes)
-├── realtime_alpr_voting.py             # Temps réel avec vote (349 lignes)
-├── organize_dataset.py                 # Organisation dataset + split (166 lignes)
-├── visualize_results.py                # Visualisation résultats
-├── download_pretrained_weights.py      # Téléchargement poids
-├── test_pretrained_model.py            # Test du modèle
-├── test_ocr_track38.py                 # Debug OCR spécifique
-├── ocr_from_tracks_debug.py            # Version debug OCR
-├── realtime_detect.py                  # Détection simple temps réel
+├── train_yolo.py                       # Two-phase training (239 lines)
+├── inference.py                        # Complete batch pipeline (357 lines)
+├── ocr_from_tracks.py                  # OCR post-processing with voting (548 lines)
+├── realtime_alpr.py                    # Simple real-time (273 lines)
+├── realtime_alpr_voting.py             # Real-time with voting (349 lines)
+├── organize_dataset.py                 # Dataset organization + split (166 lines)
+├── visualize_results.py                # Results visualization
+├── download_pretrained_weights.py      # Weights download
+├── test_pretrained_model.py            # Model testing
+├── test_ocr_track38.py                 # Specific OCR debug
+├── ocr_from_tracks_debug.py            # OCR debug version
+├── realtime_detect.py                  # Simple real-time detection
 │
-├── extract_frames.sh                   # Extraction FFmpeg (6 FPS)
-├── quickstart.sh                       # Setup automatisé complet
-├── download_weights_simple.sh          # Téléchargement poids alternatif
+├── extract_frames.sh                   # FFmpeg extraction (6 FPS)
+├── quickstart.sh                       # Complete automated setup
+├── download_weights_simple.sh          # Alternative weights download
 │
-├── requirements.txt                    # Dépendances Python
-├── data.yaml                           # Config dataset YOLO
-├── .gitignore                          # Exclusions Git
+├── requirements.txt                    # Python dependencies
+├── data.yaml                           # YOLO dataset config
+├── .gitignore                          # Git exclusions
 │
-├── README.md                           # Documentation principale (français)
-├── README_DETAILED.md                  # [CE FICHIER] Documentation complète
-├── SETUP_COMPLETE.md                   # Guide de configuration
-├── QUICK_COMMANDS.md                   # Référence rapide commandes
-├── PRETRAINED_WEIGHTS.md               # Documentation poids pré-entraînés
+├── README.md                           # Main documentation (French)
+├── README_DETAILED.md                  # [THIS FILE] Complete documentation
+├── SETUP_COMPLETE.md                   # Setup guide
+├── QUICK_COMMANDS.md                   # Quick command reference
+├── PRETRAINED_WEIGHTS.md               # Pre-trained weights documentation
 │
-├── data/                               # Données du projet
-│   ├── plates/                         # Dataset YOLO organisé
+├── data/                               # Project data
+│   ├── plates/                         # Organized YOLO dataset
 │   │   ├── images/
-│   │   │   ├── train/                  # 33 images d'entraînement
-│   │   │   └── val/                    # 10 images de validation
+│   │   │   ├── train/                  # 33 training images
+│   │   │   └── val/                    # 10 validation images
 │   │   └── labels/
-│   │       ├── train/                  # Labels YOLO format
+│   │       ├── train/                  # YOLO format labels
 │   │       └── val/
 │   │
-│   ├── raw_frames/                     # Frames extraites (~195 PNG)
-│   ├── hard_negatives/                 # 153 négatives pour HNM
-│   └── videos/                         # Vidéos sources
+│   ├── raw_frames/                     # Extracted frames (~195 PNG)
+│   ├── hard_negatives/                 # 153 negatives for HNM
+│   └── videos/                         # Source videos
 │       ├── clip1.mp4                   # 27MB
 │       └── clip2.mp4                   # 74MB
 │
-├── runs/                               # Résultats d'entraînement YOLO
+├── runs/                               # YOLO training results
 │   └── detect/
 │       ├── train_phase1/               # Phase 1 (freeze)
 │       │   ├── weights/
@@ -623,28 +623,28 @@ car_plate_projet/
 │       │
 │       └── train_phase2/               # Phase 2 (unfreeze)
 │           ├── weights/
-│           │   ├── best.pt             # MODÈLE FINAL
+│           │   ├── best.pt             # FINAL MODEL
 │           │   └── last.pt
 │           └── results.png
 │
-├── ocr_v1/ à ocr_v5/                   # Itérations OCR
-├── ocr_final/                          # Meilleurs résultats
-│   ├── results.csv                     # Track_ID, Plaque, Confiance
-│   ├── crops/                          # Images des plaques
+├── ocr_v1/ to ocr_v5/                  # OCR iterations
+├── ocr_final/                          # Best results
+│   ├── results.csv                     # Track_ID, Plate, Confidence
+│   ├── crops/                          # Plate images
 │   │   ├── track_34_HE-395-ER.png
 │   │   ├── track_38_CN-092-TR.png
 │   │   ├── track_105_GS-708-TE.png
 │   │   └── track_114_HE-066-US.png
-│   └── visualization.png               # Grille de résultats
+│   └── visualization.png               # Results grid
 │
-├── job_3239936.../                     # Export CVAT
-│   └── obj_train_data/                 # Labels YOLO bruts
+├── job_3239936.../                     # CVAT export
+│   └── obj_train_data/                 # Raw YOLO labels
 │
-├── venv/                               # Environnement virtuel Python
-│   ├── bin/                            # Exécutables (python, pip)
-│   └── lib/                            # Bibliothèques installées
+├── venv/                               # Python virtual environment
+│   ├── bin/                            # Executables (python, pip)
+│   └── lib/                            # Installed libraries
 │
-└── img/                                # [À CRÉER] Screenshots pour README
+└── img/                                # [TO CREATE] Screenshots for README
     ├── training_pipeline.png
     ├── realtime_detection.png
     ├── ocr_voting.png
@@ -655,132 +655,132 @@ car_plate_projet/
 
 ---
 
-## Compétences techniques
+## Technical Skills
 
 ### **Deep Learning & Computer Vision**
-- **YOLO (You Only Look Once)** : Architecture de détection d'objets temps réel
-- **Transfer Learning** : Fine-tuning de modèles pré-entraînés
-- **Two-Phase Training** : Stratégie freeze/unfreeze pour petits datasets
-- **Object Tracking** : ByteTrack pour suivi multi-objets
-- **Data Augmentation** : Techniques avancées pour augmenter la robustesse
-- **Hyperparameter Tuning** : Optimisation des paramètres d'entraînement
+- **YOLO (You Only Look Once)**: Real-time object detection architecture
+- **Transfer Learning**: Fine-tuning pre-trained models
+- **Two-Phase Training**: Freeze/unfreeze strategy for small datasets
+- **Object Tracking**: ByteTrack for multi-object tracking
+- **Data Augmentation**: Advanced techniques to increase robustness
+- **Hyperparameter Tuning**: Training parameter optimization
 
-### **Traitement d'image & Vision**
-- **OpenCV** : Manipulation d'images et vidéos
-- **Preprocessing** : Conversion couleur, binarisation OTSU, resize
-- **Sharpness Detection** : Laplacian variance pour mesure de netteté
-- **Frame Selection** : Algorithmes de scoring multi-critères
-- **Crop Extraction** : Extraction précise de régions d'intérêt
-- **Angle Detection** : Correction de perspective et rotation
+### **Image Processing & Vision**
+- **OpenCV**: Image and video manipulation
+- **Preprocessing**: Color conversion, OTSU binarization, resize
+- **Sharpness Detection**: Laplacian variance for sharpness measurement
+- **Frame Selection**: Multi-criteria scoring algorithms
+- **Crop Extraction**: Precise region of interest extraction
+- **Angle Detection**: Perspective correction and rotation
 
 ### **OCR & NLP**
-- **PaddleOCR** : Moteur OCR avancé avec détection d'angle
-- **EasyOCR** : Alternative légère pour temps réel
-- **Text Normalization** : Correction et validation de formats
-- **Regex Validation** : Patterns pour plaques françaises
-- **Voting Mechanisms** : Consensus multi-frames pondéré
-- **Character Correction** : Corrections contextuelles (O/0, I/1)
+- **PaddleOCR**: Advanced OCR engine with angle detection
+- **EasyOCR**: Lightweight alternative for real-time
+- **Text Normalization**: Format correction and validation
+- **Regex Validation**: Patterns for French plates
+- **Voting Mechanisms**: Weighted multi-frame consensus
+- **Character Correction**: Contextual corrections (O/0, I/1)
 
 ### **Architecture & DevOps**
-- **Modular Design** : Séparation claire des responsabilités
-- **Class-based Architecture** : PlateTracker, VotingSystem
-- **Configuration Management** : YAML pour paramètres
-- **Logging** : Traçabilité complète des opérations
-- **Error Handling** : Gestion robuste des exceptions
-- **Virtual Environments** : Isolation des dépendances
+- **Modular Design**: Clear separation of responsibilities
+- **Class-based Architecture**: PlateTracker, VotingSystem
+- **Configuration Management**: YAML for parameters
+- **Logging**: Complete operation traceability
+- **Error Handling**: Robust exception management
+- **Virtual Environments**: Dependency isolation
 
-### **Développement Python**
-- **Python 3.8+** : Syntaxe moderne et type hints
-- **Multiprocessing** : Traitement parallèle (optionnel)
-- **File I/O** : Gestion de fichiers CSV, images, vidéos
-- **CLI Arguments** : argparse pour interfaces en ligne de commande
-- **Progress Tracking** : tqdm pour suivi en temps réel
-- **Data Structures** : deque pour buffers, defaultdict pour votes
+### **Python Development**
+- **Python 3.8+**: Modern syntax and type hints
+- **Multiprocessing**: Parallel processing (optional)
+- **File I/O**: CSV, image, video file management
+- **CLI Arguments**: argparse for command-line interfaces
+- **Progress Tracking**: tqdm for real-time monitoring
+- **Data Structures**: deque for buffers, defaultdict for votes
 
 ### **Video Processing**
-- **FFmpeg** : Extraction de frames avec filtres avancés
-- **Stream Processing** : Support webcam, vidéo, RTSP
-- **FPS Control** : Gestion du framerate d'extraction
-- **Anti-duplicate** : Filtre mpdecimate pour éviter redondance
-- **Real-time Display** : cv2.imshow avec contrôles interactifs
+- **FFmpeg**: Frame extraction with advanced filters
+- **Stream Processing**: Webcam, video, RTSP support
+- **FPS Control**: Extraction framerate management
+- **Anti-duplicate**: mpdecimate filter to avoid redundancy
+- **Real-time Display**: cv2.imshow with interactive controls
 
 ### **Data Management**
-- **Dataset Organization** : Split train/val stratifié
-- **Hard-Negative Mining** : Sélection intelligente d'échantillons négatifs
-- **Sharpness-based Selection** : Critères de qualité automatiques
-- **CVAT Integration** : Export/import d'annotations
-- **YOLO Format** : Conversion et validation de labels
+- **Dataset Organization**: Stratified train/val split
+- **Hard-Negative Mining**: Intelligent negative sample selection
+- **Sharpness-based Selection**: Automatic quality criteria
+- **CVAT Integration**: Annotation export/import
+- **YOLO Format**: Label conversion and validation
 
 ### **Performance Optimization**
-- **GPU Acceleration** : PyTorch CUDA, Apple Metal
-- **Batch Processing** : Traitement groupé d'images
-- **Early Stopping** : Optimisation du temps de traitement
-- **Result Caching** : Éviter re-calculs inutiles
-- **Memory Management** : Buffers limités, garbage collection
+- **GPU Acceleration**: PyTorch CUDA, Apple Metal
+- **Batch Processing**: Grouped image processing
+- **Early Stopping**: Processing time optimization
+- **Result Caching**: Avoid unnecessary re-calculations
+- **Memory Management**: Limited buffers, garbage collection
 
 ---
 
-## Types de modes disponibles
+## Available Modes
 
-### Mode Entraînement
-- **Transfer learning** depuis poids spécialisés plaques
-- **Stratégie deux phases** : stabilisation puis fine-tuning
-- **Augmentation adaptative** pour petits datasets
-- **Validation continue** avec métriques détaillées
+### Training Mode
+- **Transfer learning** from specialized plate weights
+- **Two-phase strategy**: stabilization then fine-tuning
+- **Adaptive augmentation** for small datasets
+- **Continuous validation** with detailed metrics
 
-### Mode Inférence Batch
-- **Traitement vidéo complet** avec progression
-- **Sélection automatique** du meilleur frame par véhicule
-- **OCR optimisé** avec vote multi-frames
-- **Export structuré** CSV + crops organisés
+### Batch Inference Mode
+- **Complete video processing** with progress
+- **Automatic selection** of best frame per vehicle
+- **Optimized OCR** with multi-frame voting
+- **Structured export** CSV + organized crops
 
-### Mode Temps Réel Simple
-- **Détection instantanée** sur flux vidéo
-- **Affichage live** avec bounding boxes
-- **FPS monitoring** pour performance
-- **Support multi-sources** (webcam/vidéo/RTSP)
+### Simple Real-time Mode
+- **Instant detection** on video stream
+- **Live display** with bounding boxes
+- **FPS monitoring** for performance
+- **Multi-source support** (webcam/video/RTSP)
 
-### Mode Temps Réel avec Vote
-- **Consensus multi-frames** pour précision maximale
-- **Buffer intelligent** de 3-5 frames par véhicule
-- **Confirmation automatique** après vote
-- **Optimisation mémoire** (pas de re-OCR)
+### Real-time Mode with Voting
+- **Multi-frame consensus** for maximum accuracy
+- **Intelligent buffer** of 3-5 frames per vehicle
+- **Automatic confirmation** after voting
+- **Memory optimization** (no re-OCR)
 
-### Mode Post-Processing
-- **Analyse de labels YOLO** existants
-- **Vote avancé** avec prétraitement adaptatif
-- **Visualisations** grille de résultats
-- **Debug complet** avec logs détaillés
+### Post-Processing Mode
+- **Existing YOLO labels analysis**
+- **Advanced voting** with adaptive preprocessing
+- **Visualizations** results grid
+- **Complete debug** with detailed logs
 
-### Mode Visualisation
-- **Génération de rapports** avec statistiques
-- **Grilles d'images** annotées
-- **Métriques de performance** (temps, précision)
-- **Comparaison de runs** OCR
+### Visualization Mode
+- **Report generation** with statistics
+- **Annotated image grids**
+- **Performance metrics** (time, accuracy)
+- **OCR runs comparison**
 
 ---
 
-## Configuration technique
+## Technical Configuration
 
-### **Paramètres YOLO**
+### **YOLO Parameters**
 
 ```python
 YOLO_CONFIG = {
-    # Modèle
+    # Model
     "model": "yolo11s.pt",              # Base model
-    "pretrained": "license_plate_detector.pt",  # Poids spécialisés
+    "pretrained": "license_plate_detector.pt",  # Specialized weights
 
-    # Entraînement
-    "epochs_phase1": 20,                # Phase freeze
-    "epochs_phase2": 30,                # Phase unfreeze
-    "imgsz": 1280,                      # Résolution
+    # Training
+    "epochs_phase1": 20,                # Freeze phase
+    "epochs_phase2": 30,                # Unfreeze phase
+    "imgsz": 1280,                      # Resolution
     "batch": 8,                         # Batch size
-    "freeze": 10,                       # Nombre de couches gelées
+    "freeze": 10,                       # Number of frozen layers
 
-    # Optimisation
+    # Optimization
     "patience": 50,                     # Early stopping
-    "lr0": 0.01,                        # Learning rate initial
-    "lrf": 0.001,                       # Learning rate final
+    "lr0": 0.01,                        # Initial learning rate
+    "lrf": 0.001,                       # Final learning rate
     "momentum": 0.937,
     "weight_decay": 0.0005,
 
@@ -794,14 +794,14 @@ YOLO_CONFIG = {
     "mosaic": 0.5,
     "mixup": 0.1,
 
-    # Inférence
-    "conf": 0.25,                       # Seuil de confiance
+    # Inference
+    "conf": 0.25,                       # Confidence threshold
     "iou": 0.45,                        # NMS IoU threshold
-    "max_det": 300                      # Détections max par image
+    "max_det": 300                      # Max detections per image
 }
 ```
 
-### **Configuration OCR**
+### **OCR Configuration**
 
 ```python
 OCR_CONFIG = {
@@ -824,21 +824,21 @@ OCR_CONFIG = {
         "recognizer": True
     },
 
-    # Prétraitement
+    # Preprocessing
     "preprocessing": {
-        "min_width": 120,               # Resize si plus petit
-        "binary_threshold": "otsu",     # OTSU automatique
-        "fallback_enabled": True        # Essai binaire si échec
+        "min_width": 120,               # Resize if smaller
+        "binary_threshold": "otsu",     # Automatic OTSU
+        "fallback_enabled": True        # Binary attempt if failure
     },
 
-    # Vote
+    # Voting
     "voting": {
-        "frames_per_track": 5,          # Nombre de frames à analyser
-        "min_confidence": 0.5,          # Seuil de confiance minimum
-        "weighted": True                # Vote pondéré par confiance
+        "frames_per_track": 5,          # Number of frames to analyze
+        "min_confidence": 0.5,          # Minimum confidence threshold
+        "weighted": True                # Confidence-weighted voting
     },
 
-    # Normalisation
+    # Normalization
     "normalization": {
         "format": "french",             # AA-123-AA
         "corrections": {
@@ -850,109 +850,109 @@ OCR_CONFIG = {
 }
 ```
 
-### **Paramètres de tracking**
+### **Tracking Parameters**
 
 ```python
 TRACKING_CONFIG = {
-    "tracker": "bytetrack.yaml",        # Algorithme
-    "persist": True,                    # Maintenir IDs
-    "conf": 0.25,                       # Seuil de détection
-    "iou": 0.45,                        # IoU pour association
-    "max_age": 30,                      # Frames avant perte ID
-    "min_hits": 3,                      # Frames avant confirmation
-    "track_buffer": 30                  # Buffer pour occultations
+    "tracker": "bytetrack.yaml",        # Algorithm
+    "persist": True,                    # Maintain IDs
+    "conf": 0.25,                       # Detection threshold
+    "iou": 0.45,                        # IoU for association
+    "max_age": 30,                      # Frames before ID loss
+    "min_hits": 3,                      # Frames before confirmation
+    "track_buffer": 30                  # Buffer for occlusions
 }
 ```
 
-### **Extraction FFmpeg**
+### **FFmpeg Extraction**
 
 ```bash
-# Configuration dans extract_frames.sh
-FPS=6                                   # Frames par seconde
+# Configuration in extract_frames.sh
+FPS=6                                   # Frames per second
 VIDEO_FILTER="mpdecimate"               # Anti-duplicate
-OUTPUT_FORMAT="frame_%06d.png"          # Format de sortie
-QUALITY="qscale:v 2"                    # Qualité PNG (1-31, 2=haute)
+OUTPUT_FORMAT="frame_%06d.png"          # Output format
+QUALITY="qscale:v 2"                    # PNG quality (1-31, 2=high)
 ```
 
 ---
 
-## Métriques et statistiques
+## Metrics and Statistics
 
-### Performance du modèle
+### Model Performance
 
-#### Détection (après entraînement sur 43 images)
-- **mAP50** : ~88% (IoU=0.50)
-- **mAP50-95** : ~70% (IoU=0.50:0.05:0.95)
-- **Precision** : ~92%
-- **Recall** : ~85%
-- **F1-Score** : ~88%
+#### Detection (after training on 43 images)
+- **mAP50**: ~88% (IoU=0.50)
+- **mAP50-95**: ~70% (IoU=0.50:0.05:0.95)
+- **Precision**: ~92%
+- **Recall**: ~85%
+- **F1-Score**: ~88%
 
-#### OCR (selon conditions)
-- **Single frame (conditions idéales)** : ~85%
-- **Single frame (conditions moyennes)** : ~70%
-- **Voting 3 frames** : ~90%
-- **Voting 5 frames** : ~94%
-- **Avec normalisation** : +5-8% de gain
+#### OCR (depending on conditions)
+- **Single frame (ideal conditions)**: ~85%
+- **Single frame (average conditions)**: ~70%
+- **Voting 3 frames**: ~90%
+- **Voting 5 frames**: ~94%
+- **With normalization**: +5-8% gain
 
-### Temps de traitement
+### Processing Time
 
-#### Par vidéo de 30 secondes (900 frames)
-- **Extraction frames (FFmpeg)** : ~5-8 secondes
-- **Détection YOLO** : ~20-25 secondes (30 FPS)
-- **Tracking** : inclus dans détection (~2ms overhead)
-- **Best frame selection** : ~0.5 secondes
-- **OCR batch (10 véhicules × 5 frames)** : ~25-30 secondes
-- **Export CSV + crops** : ~1-2 secondes
-- **Total pipeline** : ~50-65 secondes
+#### Per 30-second video (900 frames)
+- **Frame extraction (FFmpeg)**: ~5-8 seconds
+- **YOLO Detection**: ~20-25 seconds (30 FPS)
+- **Tracking**: included in detection (~2ms overhead)
+- **Best frame selection**: ~0.5 seconds
+- **OCR batch (10 vehicles × 5 frames)**: ~25-30 seconds
+- **CSV + crops export**: ~1-2 seconds
+- **Total pipeline**: ~50-65 seconds
 
-#### Temps réel (flux webcam)
-- **FPS moyen** : 25-35 FPS (selon GPU)
-- **Latence détection** : ~20-30ms
-- **Latence OCR (par plaque)** : ~80-120ms
-- **Overhead affichage** : ~5-10ms
+#### Real-time (webcam stream)
+- **Average FPS**: 25-35 FPS (depending on GPU)
+- **Detection latency**: ~20-30ms
+- **OCR latency (per plate)**: ~80-120ms
+- **Display overhead**: ~5-10ms
 
-### Ressources système
+### System Resources
 
-#### Entraînement
-- **RAM** : ~4-6GB
-- **VRAM (GPU)** : ~2-4GB
-- **Stockage** : ~500MB (modèle + cache)
-- **CPU** : 4-8 cores recommandés
+#### Training
+- **RAM**: ~4-6GB
+- **VRAM (GPU)**: ~2-4GB
+- **Storage**: ~500MB (model + cache)
+- **CPU**: 4-8 cores recommended
 
-#### Inférence
-- **RAM** : ~800MB-1.5GB
-- **VRAM (GPU)** : ~500MB-1GB
-- **Stockage** : ~100MB (crops + résultats)
-- **CPU** : 2-4 cores suffisants
+#### Inference
+- **RAM**: ~800MB-1.5GB
+- **VRAM (GPU)**: ~500MB-1GB
+- **Storage**: ~100MB (crops + results)
+- **CPU**: 2-4 cores sufficient
 
-### Dataset actuel
+### Current Dataset
 
 ```
 Dataset Statistics:
 ├── Total images: 43
 ├── Training set: 33 (76.7%)
 ├── Validation set: 10 (23.3%)
-├── Positives (avec plaques): 12 (27.9%)
-├── Negatives (sans plaques): 31 (72.1%)
-├── Hard negatives saved: 153 (pour futur HNM)
-└── Frames extraites: 195 (disponibles pour annotation)
+├── Positives (with plates): 12 (27.9%)
+├── Negatives (without plates): 31 (72.1%)
+├── Hard negatives saved: 153 (for future HNM)
+└── Extracted frames: 195 (available for annotation)
 ```
 
-### Résultats OCR actuels
+### Current OCR Results
 
-**Fichier `ocr_final/results.csv`:**
+**File `ocr_final/results.csv`:**
 
-| Track ID | Plaque reconnue | Confiance | Frame | Timestamp |
-|----------|-----------------|-----------|-------|-----------|
-| 34       | HE-***-ER       | 0.92      | 307   | 10.23s    |
-| 38       | CN-***-TR       | 0.88      | 442   | 14.73s    |
-| 105      | GS-***-TE       | 0.85      | 551   | 18.37s    |
-| 114      | HE-***-US       | 0.91      | 623   | 20.77s    |
+| Track ID | Recognized Plate | Confidence | Frame | Timestamp |
+|----------|------------------|------------|-------|-----------|
+| 34       | HE-***-ER        | 0.92       | 307   | 10.23s    |
+| 38       | CN-***-TR        | 0.88       | 442   | 14.73s    |
+| 105      | GS-***-TE        | 0.85       | 551   | 18.37s    |
+| 114      | HE-***-US        | 0.91       | 623   | 20.77s    |
 
 ---
 
-*Développé avec passion en Python - Vision par ordinateur et Intelligence Artificielle*
+*Developed with passion in Python - Computer Vision and Artificial Intelligence*
 
-**Dernière mise à jour** : Janvier 2025
-**Version** : 0.5-dev
-**Statut** : En développement actif
+**Last update**: January 2025
+**Version**: 0.5-dev
+**Status**: In active development
