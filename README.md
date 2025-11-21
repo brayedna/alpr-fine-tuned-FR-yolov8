@@ -36,35 +36,20 @@ Le projet couvre l'intégralité du pipeline : extraction de frames vidéo, anno
 
 ## Captures d'écran
 
-### Pipeline complet d'entraînement
-*Extraction de frames depuis vidéo → Annotation CVAT → Organisation du dataset → Entraînement YOLO en deux phases (freeze/unfreeze) → Modèle optimisé*
+### Highway Scene – Real-World ALPR Detection & Tracking
+*This frame comes from a real driving video where the ALPR system detects, reads, and tracks multiple vehicles simultaneously.
+License plates are localized using YOLOv8 and recognized by the OCR module, each assigned a persistent track ID (e.g., CM-902-TR (T38)).
+This example highlights the system’s ability to operate under real traffic conditions with moving vehicles and long-range detection.*
 
-<!-- ![Pipeline entraînement](img/training_pipeline.png) -->
+![alpr_voting_grid_example](img/alpr_voting_grid_example.png)
 
-### Détection et suivi en temps réel
-*Interface temps réel montrant la détection de plaques avec bounding boxes colorées par track ID, affichage des numéros reconnus, et statistiques FPS.*
 
-<!-- ![Temps réel](img/realtime_detection.png) -->
+### Multi-Frame Voting Grid – OCR Prediction Stabilization
+*This image shows the multi-frame voting mechanism used to improve OCR reliability.
+Each frame produces a candidate license plate reading and confidence score, and the system selects the most consistent and highest-confidence result (CM-902-TR).
+This visualization demonstrates how combining several consecutive frames reduces OCR noise and corrects individual misreadings*
 
-### Vote multi-frames pour OCR
-*Visualisation du mécanisme de vote : 3-5 frames par véhicule analysées, scores de confiance, sélection du meilleur candidat par consensus pondéré.*
-
-<!-- ![Vote OCR](img/ocr_voting.png) -->
-
-### Résultats d'inférence structurés
-*Export CSV avec track_id, plaque reconnue, confiance, timestamp, frame. Crops organisés par track. Métriques de performance (précision, temps).*
-
-<!-- ![Résultats](img/inference_results.png) -->
-
-### Sélection du meilleur frame
-*Algorithme de scoring : netteté (Laplacian) × largeur bbox / pénalité d'angle. Comparaison visuelle de 3-5 frames par track avec scores.*
-
-<!-- ![Best frame](img/best_frame_selection.png) -->
-
-### Visualisation des résultats OCR
-*Grille de tous les véhicules détectés avec leur plaque normalisée, niveau de confiance, et frame d'origine. Statistiques globales (taux de succès, temps moyen).*
-
-<!-- ![Visualisation](img/ocr_visualization.png) -->
+![alpr_voting_grid_example](img/alpr_voting_grid_example)
 
 ---
 
