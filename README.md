@@ -41,7 +41,7 @@ Le projet couvre l'intégralité du pipeline : extraction de frames vidéo, anno
 License plates are localized using YOLOv8 and recognized by the OCR module, each assigned a persistent track ID (e.g., CM-902-TR (T38)).
 This example highlights the system’s ability to operate under real traffic conditions with moving vehicles and long-range detection.*
 
-![alpr_voting_grid_example](img/alpr_voting_grid_example.png)
+![alpr_voting_grid_example](img/alpr_highway_detection_frame.png)
 
 
 ### Multi-Frame Voting Grid – OCR Prediction Stabilization
@@ -49,7 +49,7 @@ This example highlights the system’s ability to operate under real traffic con
 Each frame produces a candidate license plate reading and confidence score, and the system selects the most consistent and highest-confidence result (CM-902-TR).
 This visualization demonstrates how combining several consecutive frames reduces OCR noise and corrects individual misreadings*
 
-![alpr_voting_grid_example](img/alpr_voting_grid_example)
+![alpr_voting_grid_example](img/alpr_voting_grid_example.png)
 
 ---
 
